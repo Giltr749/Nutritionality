@@ -10,6 +10,7 @@ import './SearchForm.css';
 
 function SearchForm({ onSearchRestaurants, onError }) {
     const {
+        radius,
         protein,
         carbohydrates,
         sodium,
@@ -19,13 +20,13 @@ function SearchForm({ onSearchRestaurants, onError }) {
         isError,
         isLoading,
         errorMessage,
+        radiusChangeHandler,
         proteinChangeHandler,
         carbohydratesChangeHandler,
         sodiumChangeHandler,
         cholesterolChangeHandler,
         totalFatChangeHandler,
         caloriesChangeHandler,
-        getSubmitButtonWording,
         searchRestaurantsHandler
     } = useSearchForm({ onSearchRestaurants, onError });
 
@@ -39,6 +40,20 @@ function SearchForm({ onSearchRestaurants, onError }) {
             </Row>
             <form className="search-form flex-col" onSubmit={searchRestaurantsHandler}>
                 <Col styles='dish-params-container'>
+                <Row styles='dish-detail-pair-container'>
+                        <Row styles='dish-detail'>
+                            <Row styles="category"><>{"Radius: "}</></Row>
+                            <div className="answer">
+                                <input
+                                    type="number"
+                                    value={radius}
+                                    className="dish-detail-input"
+                                    placeholder={"Radius"}
+                                    onChange={(event) => radiusChangeHandler(event.target.value)}
+                                />
+                            </div>
+                        </Row>
+                    </Row>
                     <Row styles='dish-detail-pair-container'>
                         <Row styles='dish-detail'>
                             <Row styles="category"><>{`${constants.PROTEIN_WORDING}:`}</></Row>

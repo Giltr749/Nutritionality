@@ -1,9 +1,9 @@
-import * as petService from '../../../Services/restaurantService';
+import * as restaurantService from '../../../Services/restaurantService';
 import * as constants from '../../../Utils/Constants/constants';
 import { useDebounce } from '../../../Hooks/useDebounce';
 import { useState, useEffect } from 'react';
 
-export function useSearchForm({ onSearchPets, onError }) {
+export function useSearchForm({ onSearchRestaurants, onError }) {
     const [protein, setProtein] = useState(0);
     const [carbohydrates, setCarbohydrates] = useState(0);
     const [sodium, setSodium] = useState(0);
@@ -13,12 +13,17 @@ export function useSearchForm({ onSearchPets, onError }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [radius, setRadius] = useState(2000);
     const [didMount, setDidMount] = useState(false);
     const [restaurantSearchParams, setRestaurantSearchParams] = useState({});
     const debouncedRestaurantSearchParams = useDebounce(restaurantSearchParams, constants.DEBOUNCE_TIMER);
 
     const proteinChangeHandler = (input) => {
         setProtein(input);
+    };
+
+    const radiusChangeHandler = (input) => {
+        setRadius(input);
     };
 
     const carbohydratesChangeHandler = (input) => {
@@ -51,8 +56,8 @@ export function useSearchForm({ onSearchPets, onError }) {
 
     const sendAndSearch = async (debouncedRestaurantSearchParams) => {
         try {
-            const restaurantSearchResults = await petService.getRestaurantsBySearchCriteria(debouncedRestaurantSearchParams);
-            onSearchPets(restaurantSearchResults);
+            const restaurantSearchResults = await restaurantService.getRestaurantsBySearchCriteria(debouncedRestaurantSearchParams);
+            onSearchRestaurants(restaurantSearchResults);
             setIsLoading(false);
         } catch (err) {
             onError(err.message);
@@ -60,16 +65,31 @@ export function useSearchForm({ onSearchPets, onError }) {
         }
     };
 
+    const getCurrentLocation = async()=>{
+        return new Promise((resolve, reject)=>{
+        navigator.geolocation.getCurrentPosition(
+          position=>resolve(position),
+          error=>reject(error)
+        )
+        });
+    }
+
     const searchRestaurantsHandler = async (event) => {
         event.preventDefault();
         setIsLoading(true);
+        const position = await getCurrentLocation();
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
         setRestaurantSearchParams({
-            protein,
-            carbohydrates,
-            sodium,
-            cholesterol,
-            totalFat,
-            calories,
+            nf_protein: protein,
+            nf_total_carbohydrate: carbohydrates,
+            nf_sodium: sodium,
+            nf_cholesterol: cholesterol,
+            nf_total_fat: totalFat,
+            nf_calories: calories,
+            Latitude: latitude,
+            Longitude: longitude,
+            Radius: radius
         });
         resetSearchFormValues();
     };
@@ -84,12 +104,17 @@ export function useSearchForm({ onSearchPets, onError }) {
     };
 
     return {
+        radius,
         protein,
         carbohydrates,
         sodium,
         cholesterol,
         totalFat,
         calories,
+        isError,
+        isLoading,
+        errorMessage,
+        radiusChangeHandler,
         proteinChangeHandler,
         carbohydratesChangeHandler,
         sodiumChangeHandler,
