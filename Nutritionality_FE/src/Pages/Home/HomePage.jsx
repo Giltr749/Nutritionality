@@ -22,7 +22,7 @@ function HomePage() {
         <Col styles='home-page'>
             <Row styles="home-page-title">{'Nutritionality'}</Row>
             <HomeInfo />
-            <SearchForm onSearchPets={searchRestaurantsHandler} onError={searchErrorHandler} />
+            <SearchForm onSearchRestaurants={searchRestaurantsHandler} onError={searchErrorHandler} />
             <SearchResults restaurants={restaurantResults} errorMessage={errorMessage} />
         </Col>
     );

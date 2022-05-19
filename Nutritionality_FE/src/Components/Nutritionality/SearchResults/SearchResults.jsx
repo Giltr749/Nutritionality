@@ -18,10 +18,20 @@ function SearchResults({ restaurants, errorMessage }) {
                         </Row>
                         :
                         <Row styles='search-results-inner-container'>
-                            {restaurants.map((restaurant, index) => (
+                            {restaurants.map((restaurant) => (
                                 <Col styles='search-restaurant-result-container'>
-                                    <Row styles="restaurant-name"></Row>
-                                    <Row styles="restaurant-meal"></Row>
+                                    <Row styles="restaurant-name">
+                                        <>{restaurant.name}</>
+                                    </Row>
+                                    <Row styles="restaurant-meal">
+                                        <>{restaurant.meal}</>
+                                    </Row>
+                                    <Row styles="restaurant-score">
+                                        <>{restaurant.score}</>
+                                    </Row>
+                                    <Row styles="restaurant-nutritional-values">
+                                        <>{restaurant}</>
+                                    </Row>
                                 </Col>
                             ))}
                         </Row>}
