@@ -1,0 +1,33 @@
+.search-results-grid-container {
+    width: 100%;
+    justify-content: center;
+    background-color: white;
+}
+
+.search-results-grid {
+    min-height: 80%;
+    width: 100%;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-items: center;
+}
+
+.search-pet-result-wrapper {
+    height: 20rem;
+    width: 20rem;
+}
+
+.no-pets-found-message {
+    font-size: 2rem;
+    padding: 1rem 0;
+    justify-content: center;
+}
+
+@media (max-width: 540px) {
+    .search-pet-result-wrapper {
+        width: 14rem;
+    }
+}

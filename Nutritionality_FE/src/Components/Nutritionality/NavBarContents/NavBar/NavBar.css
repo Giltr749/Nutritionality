@@ -1,0 +1,27 @@
+.navbar-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.navbar-tab {
+    color: var(--theme-yellow);
+    display: flex;
+    text-decoration: none;
+    font-family: var(--font-theme);
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.navbar-tab:hover {
+    color: var(--theme-purple);
+    transition: all 0.15s ease-in-out;
+}
+
+@media (max-width: 1500px) {
+    .navbar-container {
+        flex-direction: column;
+    }
+}

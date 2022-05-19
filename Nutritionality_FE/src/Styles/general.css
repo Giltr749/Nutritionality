@@ -1,0 +1,49 @@
+/* GENERAL */
+.flex-row,
+.flex-col {
+    display: flex;
+    align-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.invisible {
+    display: none;
+}
+
+/* TITLE */
+.nutritionality-title {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    color: var(--theme-yellow);
+    text-align: center;
+}
+
+/* USER GREETING */
+.user-greeting {
+    font-size: 1.25rem;
+    color: #4d4751;
+}
+
+/* LINKS */
+.nutritionality-link {
+    color: var(--theme-purple);
+}
+
+.nutritionality-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+/* SCROLLBAR ANIMATION*/
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(167, 166, 166);
+    border-radius: 20px;
+}
